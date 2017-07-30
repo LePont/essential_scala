@@ -1,13 +1,16 @@
 import ch3._
+import ch4.ADTSamples.{Failure, Success}
 import ch4.Colour.{CustomColour, Yellow}
-import ch4.Draw
+import ch4.Recursion._
+import ch4._
 import ch4.Shapes._
+import ch4.Trees.{Leaf, Node}
 
 object Appy extends App{
 
-  val c1 = new Cat("q","red","chips")
-  val c2 = new Cat("q2","blue","chips")
-  val c3 = new Cat("q3","redfd","fish")
+  val c1 = Cat("q","red","chips")
+  val c2 = Cat("q2","blue","chips")
+  val c3 = Cat("q3","redfd","fish")
 
   println(ChipShop.willServe(c1))
 
@@ -48,4 +51,40 @@ object Appy extends App{
   println(Draw(sq))
   println(Draw(rect))
 
+  def checkDiv(x: Int) = divide(1,x) match {
+    case Finite(v) => s"Its finite ${v}"
+    case Infinite => "It an infinite"
+  }
+
+  println(checkDiv(2))
+  println(checkDiv(0))
+
+  //CALC
+
+  assert(Calculator.+(Success(1), 1) == Success(2))
+  assert(Calculator.-(Success(1), 1) == Success(0))
+  assert(Calculator.+(Failure("Badness"), 1) == Failure("Badness"))
+
+  assert(Calculator./(Success(4), 2) == Success(2))
+  assert(Calculator./(Success(4), 0) == Failure("Division by zero"))
+  assert(Calculator./(Failure("Badness"), 0) == Failure("Badness"))
+
+
+  //Recursion with Lists
+  val example = Pair(1, Pair(2, Pair(3, End)))
+  assert(example.length == 3)
+  assert(example.tail.length == 2)
+  assert(End.length == 0)
+
+  assert(example.product == 6)
+  assert(example.tail.product == 6)
+  assert(End.product == 1)
+
+  assert(example.double == Pair(2, Pair(4, Pair(6, End))))
+  assert(example.tail.double == Pair(4, Pair(6, End)))
+  assert(End.double == End)
+
+  // Recusion with Trees
+  val myTree =Trees.Node(Leaf(2),Node(Leaf(4), Leaf(12)))
+  assert(TreeOps.sum(myTree) == 18)
 }
