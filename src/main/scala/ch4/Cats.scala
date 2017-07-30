@@ -2,6 +2,11 @@ package ch4
 
 object Cats {
 
+  trait Feline {
+    def colour: String
+    def sound: String = "Roar"
+  }
+
   case class Lion(colour: String, maneSize: Int) extends Feline
 
   case class Tiger(colour: String) extends Feline

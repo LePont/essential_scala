@@ -1,4 +1,7 @@
 import ch3._
+import ch4.Colour.{CustomColour, Yellow}
+import ch4.Draw
+import ch4.Shapes._
 
 object Appy extends App{
 
@@ -35,4 +38,14 @@ object Appy extends App{
   val p3 = Person("sfvf","sfsdfv")
 
   println(Dad.rate(unforgiven))
+
+  println("** Shapes **")
+
+  val myCol = CustomColour(1,3,2)
+  val sq = Square(4, Yellow)
+  val rect = Rectangle(12,2,myCol)
+
+  println(Draw(sq))
+  println(Draw(rect))
+
 }

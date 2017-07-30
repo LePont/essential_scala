@@ -1,20 +1,34 @@
 package ch4
 
+import ch4.Colour.Colour
+
 object Shapes {
 
-  case class Circle(radius: Double) extends Shape{
-    override def area: Double = ???
-
-    override def perimeter: Double = ???
-
-    override def sides: Double = 0
+  sealed trait Shape {
+    def sides: Int
+    def perimeter: Double
+    def area: Double
+    def colour: Colour
   }
 
-  case class Square(side: Double) extends Shape {
-    override def area: Double = ???
+  sealed trait Rectangular extends Shape {
+    def width: Double
+    def height: Double
+    val sides = 4
+    val perimeter = 2*width + 2*height
+    val area = width*height
+  }
 
-    override def perimeter: Double = ???
+  final case class Circle(radius: Double, colour: Colour) extends Shape {
+    val sides = 1
+    val perimeter = 2 * math.Pi * radius
+    val area = math.Pi * radius * radius
+  }
 
-    override def sides: Double = ???
+  final case class Rectangle(width: Double, height: Double, colour: Colour) extends Rectangular {}
+
+  final case class Square(size: Double, colour: Colour) extends Rectangular {
+    val width = size
+    val height = size
   }
 }
