@@ -4,6 +4,7 @@ import ch4.ADTSamples.{Calculation, Failure, Success}
 
 
 object Calculator {
+
   def +(cal: Calculation, v: Int): Calculation ={
     cal match{
       case Success(c) => Success(c+v)
