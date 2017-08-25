@@ -87,4 +87,12 @@ object Appy extends App{
   // Recusion with Trees
   val myTree =Trees.Node(Leaf(2),Node(Leaf(4), Leaf(12)))
   assert(TreeOps.sum(myTree) == 18)
+
+  //
+  //JSON
+
+  import JSONOps._
+  println(SeqItem(JSString("Test"), SeqItem(JSDouble(2.0),SeqEnd)).print)
+  println(ObjSeq("MyKey", SeqItem(JSString("Test"), SeqItem(JSDouble(2.0),SeqEnd)),ObjEnd).print)
+
 }
