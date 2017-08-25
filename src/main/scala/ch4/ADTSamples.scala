@@ -39,10 +39,6 @@ object ADTSamples {
   }
   */
 
-  sealed trait Calculation
-  final case class Success(res: Int) extends Calculation
-  final case class Failure(message: String) extends Calculation
-
   sealed trait Source
   final case object well extends Source
   final case object spring extends Source

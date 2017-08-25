@@ -1,10 +1,10 @@
 import ch3._
-import ch4.ADTSamples.{Failure, Success}
 import ch4.Colour.{CustomColour, Yellow}
 import ch4.Recursion._
 import ch4._
 import ch4.Shapes._
 import ch4.Trees.{Leaf, Node}
+import ch5.ErrorHandling._
 
 object Appy extends App{
 
@@ -71,18 +71,18 @@ object Appy extends App{
 
 
   //Recursion with Lists
-  val example = Pair(1, Pair(2, Pair(3, End)))
+  val example = Pair(1, Pair(2, Pair(3, End())))
   assert(example.length == 3)
   assert(example.tail.length == 2)
-  assert(End.length == 0)
+  assert(End().length == 0)
 
-  assert(example.product == 6)
-  assert(example.tail.product == 6)
-  assert(End.product == 1)
-
-  assert(example.double == Pair(2, Pair(4, Pair(6, End))))
-  assert(example.tail.double == Pair(4, Pair(6, End)))
-  assert(End.double == End)
+//  assert(example.product == 6)
+//  assert(example.tail.product == 6)
+//  assert(End().product == 1)
+//
+//  assert(example.double == Pair(2, Pair(4, Pair(6, End()))))
+//  assert(example.tail.double == Pair(4, Pair(6, End())))
+//  assert(End().double == End())
 
   // Recusion with Trees
   val myTree =Trees.Node(Leaf(2),Node(Leaf(4), Leaf(12)))
@@ -94,5 +94,17 @@ object Appy extends App{
   import JSONOps._
   println(SeqItem(JSString("Test"), SeqItem(JSDouble(2.0),SeqEnd)).print)
   println(ObjSeq("MyKey", SeqItem(JSString("Test"), SeqItem(JSDouble(2.0),SeqEnd)),ObjEnd).print)
+
+  // Generics
+
+  println(example(0))
+
+  assert(example.contains(2) == true)
+  assert(example.contains("THis Sdfgs") == false)
+
+  assert(example(0) == Success(1))
+  assert(example(1) == Success(2))
+  assert(example(2) == Success(3))
+  assert(example(3) == Failure("Bad times dude"))
 
 }
