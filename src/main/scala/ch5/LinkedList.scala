@@ -13,6 +13,13 @@ object LinkedList {
           }
         }
 
+        def fold[B](end: B, pair: (A, B) => B): B = {
+          this match {
+            case End() => end
+            case Pair(hd, tl) => pair(hd, tl.fold(end, pair))
+          }
+        }
+
         def length: Int =
           this match {
             case Pair(_, tl) => 1 + tl.length
