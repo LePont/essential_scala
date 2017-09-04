@@ -3,6 +3,7 @@ package ch5
 import ch5.ErrorHandling.{Failure, Success}
 import ch5.LinkedList._
 import ch5.Tree._
+import ch5.GenTypes._
 
 object GO5 extends App{
 
@@ -24,5 +25,22 @@ object GO5 extends App{
 
 
   println(tree.fold[String]((a, b) => a + " " + b, str => str))
+
+
+  val p = GenPair[Int, String](1,"hi")
+  println(p.one, p.two, p)
+
+  val su: Sum[Int, String] = GenLeft(120)
+  val lsu = su match {
+    case GenLeft(x) => x.toString
+    case GenRight(y) => y
+  }
+
+  println(lsu)
+
+  val perhapsNot: Maybe[Int] = Empty[Int]
+  println(perhapsNot)
+  val perhapsSo: Maybe[Int] = Full(123)
+  println(perhapsSo)
 
 }
