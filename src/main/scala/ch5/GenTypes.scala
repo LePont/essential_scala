@@ -6,7 +6,7 @@ object GenTypes {
 
   sealed trait Sum[A, B] {
 
-    def fold[C](gl: (A, B) => C, gr: (A, B) => C): C = {
+    def fold[C](gl: A => C, gr: B => C): C = {
       this match {
         case GenLeft(value) => gl(value)
         case GenRight(value) => gr(value)
@@ -18,6 +18,13 @@ object GenTypes {
   final case class GenRight[A, B](value: B) extends Sum[A, B]
 
   sealed trait Maybe[A] {
+
+    def flatMap[B](fn: A => Maybe[B]): Maybe[B] = {
+      this match {
+        case Full(v) => fn(v)
+        case Empty() => Empty[B]
+      }
+    }
 
     def fold[B](empty: B, full: A => B): B ={
       this match{

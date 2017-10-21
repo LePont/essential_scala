@@ -6,6 +6,13 @@ object LinkedList {
 
   sealed trait LinkedList[A] {
 
+        def map[B](fn: A => B): LinkedList[B] ={
+          this match {
+            case Pair(hd, tl) => Pair(fn(hd), tl.map(fn))
+            case End() => End[B]()
+          }
+        }
+
         def apply(i: Int): Result[A] = {
           this match {
             case End() => Failure("Bad times dude")
