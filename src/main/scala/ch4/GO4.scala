@@ -4,7 +4,7 @@ import ch4.Colour.{CustomColour, Yellow}
 import ch4.IntList.{IntEnd, IntPair}
 import ch4.Shapes.{Rectangle, Square}
 import ch4.Trees.{Leaf, Node}
-import ch5.ErrorHandling.{Failure, Success}
+import ch5.ErrorHandling.{FailureResult, SuccessResult}
 
 object GO4 extends App{
     println("** Shapes **")
@@ -26,13 +26,13 @@ object GO4 extends App{
 
   //CALC
 
-  assert(Calculator.+(Success(1), 1) == Success(2))
-  assert(Calculator.-(Success(1), 1) == Success(0))
-  assert(Calculator.+(Failure("Badness"), 1) == Failure("Badness"))
+  assert(Calculator.+(SuccessResult(1), 1) == SuccessResult(2))
+  assert(Calculator.-(SuccessResult(1), 1) == SuccessResult(0))
+  assert(Calculator.+(FailureResult("Badness"), 1) == FailureResult("Badness"))
 
-  assert(Calculator./(Success(4), 2) == Success(2))
-  assert(Calculator./(Success(4), 0) == Failure("Division by zero"))
-  assert(Calculator./(Failure("Badness"), 0) == Failure("Badness"))
+  assert(Calculator./(SuccessResult(4), 2) == SuccessResult(2))
+  assert(Calculator./(SuccessResult(4), 0) == FailureResult("Division by zero"))
+  assert(Calculator./(FailureResult("Badness"), 0) == FailureResult("Badness"))
 
 
   //Recursion with Lists

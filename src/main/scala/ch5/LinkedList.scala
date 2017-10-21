@@ -1,6 +1,6 @@
 package ch5
 
-import ch5.ErrorHandling.{Failure, Result, Success}
+import ch5.ErrorHandling.{FailureResult, Result, SuccessResult}
 
 object LinkedList {
 
@@ -15,8 +15,8 @@ object LinkedList {
 
         def apply(i: Int): Result[A] = {
           this match {
-            case End() => Failure("Bad times dude")
-            case Pair(h, tl) => if(i == 0) Success(h) else tl(i-1)
+            case End() => FailureResult("Bad times dude")
+            case Pair(h, tl) => if(i == 0) SuccessResult(h) else tl(i-1)
           }
         }
 
