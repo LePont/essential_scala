@@ -4,7 +4,22 @@ object GenTypes {
 
   case class GenPair[A, B](one: A, two: B)
 
+  //Either
   sealed trait Sum[A, B] {
+
+    def flatMap[C](f: B => Sum[A, C]): Sum[A, C] = {
+      this match {
+        case Success(v) => f(v)
+        case Failure(v) => Failure(v)
+      }
+    }
+
+    def map[C](f: B => C): Sum[A, C] = {
+      this match {
+        case Success(v) => Success(f(v))
+        case Failure(v) => Failure(v)
+      }
+    }
 
     def fold[C](gl: A => C, gr: B => C): C = {
       this match {
@@ -17,6 +32,7 @@ object GenTypes {
   final case class Failure[A, B](value: A) extends Sum[A, B]
   final case class Success[A, B](value: B) extends Sum[A, B]
 
+  //Option
   sealed trait Maybe[A] {
 
     def flatMap[B](fn: A => Maybe[B]): Maybe[B] = {
