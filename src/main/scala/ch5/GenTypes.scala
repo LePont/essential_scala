@@ -32,6 +32,20 @@ object GenTypes {
   final case class Failure[A, B](value: A) extends Sum[A, B]
   final case class Success[A, B](value: B) extends Sum[A, B]
 
+
+  sealed trait conSum[+A, +B] {
+
+    def flatMap[C](f: B => conSum[A, C]): conSum[A, C] = {
+      this match {
+        case conSuccess(v) => f(v)
+        case conFailure(v) => conFailure(v)
+      }
+    }
+  }
+
+  final case class conSuccess[A](value: A) extends conSum[A, Nothing]
+  final case class conFailure[B](value: B) extends conSum[Nothing, B]
+
   //Option
   sealed trait Maybe[A] {
 
