@@ -1,6 +1,7 @@
 package ch5
 
 import ch5.ErrorHandling.{FailureResult, SuccessResult}
+import ch5.GenCalc._
 import ch5.LinkedList._
 import ch5.Tree._
 import ch5.GenTypes._
@@ -53,4 +54,10 @@ object GO5 extends App{
 
   val list2 = List(Full(3), Full(2), Full(1))
   println(list.map(x => if(x %2 == 0) Full(x) else Empty()))
+
+  assert(Addition(Number(1), Number(2)).eval == Success(3))
+  assert(SquareRoot(Number(-1)).eval == Failure("Square root of negative number"))
+  assert(Division(Number(4), Number(0)).eval == Failure("Divide by Zero  error"))
+  assert(Division(Addition(Subtraction(Number(8), Number(6)), Number(2)), Number(2)).eval == Success
+  (2.0))
 }
