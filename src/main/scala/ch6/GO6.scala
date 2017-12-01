@@ -25,8 +25,6 @@ object GO6 extends App{
 
   println(refinedCombos(names))
 
-
-
   //FROM REPL
 
   import scala.util.Try
