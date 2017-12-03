@@ -2,6 +2,7 @@ package ch6
 
 import OptionOpts._
 import GenerativeModel._
+import ch6.Food_Opts._
 
 object GO6 extends App{
 
@@ -24,6 +25,23 @@ object GO6 extends App{
   val objects = List("thebook","theball","thebed")
 
   println(refinedCombos(names))
+
+  val food: Distribution[Food] = Distribution(List(Raw -> 0.7, Cooked -> 0.3))
+
+  val foodModel:Distribution[(Food, Cat)] =
+    for{
+      f <- food
+      c <- cat(f)
+    }yield(f,c)
+
+  println(foodModel.ev)
+
+  val pHarrasing = foodModel.ev filter{
+    case ((_, Harassing), _) => true
+    case ((_, Asleep), _) => false
+  } map {case (a, p) => p} sum
+
+  println(pHarrasing)
 
   //FROM REPL
 
